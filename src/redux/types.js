@@ -1,0 +1,4 @@
+//redux types keys
+export const GET_NFL_DATA_REQUESTED = 'GET_NFL_DATA_REQUESTED'
+export const GET_NFL_DATA_SUCCESS = 'GET_NFL_DATA_SUCCESS'
+export const GET_NFL_DATA_FAILED = 'GET_NFL_DATA_FAILED'
