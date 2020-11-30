@@ -5,16 +5,19 @@ import { ListItem } from 'react-native-elements'
 
 
 const List = (props) => {
-  // console.log(props.data[0].sites[0].odds.totals.points[0])
+  // console.log(props.data[0].sites[0].site_key)
+ 
    return (
     <View style={styles.container}>
       <ScrollView>
   {
-    props.data.map((l, i) => (
+    props.data.map((l, i) => ( 
       <ListItem key={i} bottomDivider>
         <ListItem.Content>
-          <ListItem.Title>{l.teams}</ListItem.Title>
-          <ListItem.Subtitle>{l.sites[0].odds.totals.points[0]}</ListItem.Subtitle>
+          
+          <ListItem.Title>{l.teams}</ListItem.Title> 
+          {l.sites.length > 0 &&
+          <ListItem.Subtitle>{l.sites[0].odds.totals.points[0]}</ListItem.Subtitle>}
         </ListItem.Content>
       </ListItem>
     ))
@@ -24,6 +27,7 @@ const List = (props) => {
      
    )
    }
+  
 
   const styles = StyleSheet.create({
     container: {
