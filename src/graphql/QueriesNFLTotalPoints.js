@@ -1,10 +1,10 @@
 import gql from 'graphql-tag'
 
-export const NFL = gql`
-  query NFLOdds {
-    odds
+export const NFLTotals = gql`
+  query NFLTotals {
+    totals
       @rest(
-        type: "NFLPayload"
+        type: "NFLTotalsPayload"
         path: "&sport=americanfootball_nfl&region=us&mkt=totals"
       ) {
       data @type(name: "DataPayload") {
@@ -23,3 +23,4 @@ export const NFL = gql`
     }
   }
 `
+
