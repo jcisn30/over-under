@@ -1,42 +1,40 @@
 import { selectionSetMatchesResult } from '@apollo/client/cache/inmemory/helpers'
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, View, Text, TouchableOpacity, ActivityIndicator, FlatList, Button } from 'react-native'
-import ListItem from '../components/ListItem'
+import { StyleSheet, View, Text, TouchableOpacity, ActivityIndicator, FlatList } from 'react-native'
+import ListItemS from '../components/ListItemS'
 // import Data from '../components/Data.js'
 import { client } from '../graphql/Client'
-import { NFLTotals } from '../graphql/QueriesNFLTotalPoints'
+import { NFLSpreads } from '../graphql/QueriesNFLSpreads'
 
 
 
-function Home({navigation}) {
-
+function Spread({navigation}) {
+  
+  
   const [loading, setLoading] = useState(true);
-  const [ isPress, setIsPress ] = React.useState(true);
-  const [NFLTotalsData, setNFLTotalsData] = useState([]);
-
+  const [NFLSpreadsData, setNFLSpreadsData] = useState([]);
 
 
   useEffect(() => {
-    requestNFLTotals()
+    requestNFLSpreads()
   }, [])
 
-  const requestNFLTotals = () => {
+
+
+  const requestNFLSpreads = () => {
     client
       .query({
-        query: NFLTotals
+        query: NFLSpreads
       })
       .then(response => {
         console.log('RESPONSE ==>', response)
         setLoading(response.loading)
-        setNFLTotalsData(response.data.totals.data)
+        setNFLSpreadsData(response.data.spreads.data)
       })
       .catch(error => {
         console.log('ERROR ==>', error)
       })
   }
-
-
- 
   
 
   if (loading) {
@@ -49,7 +47,7 @@ function Home({navigation}) {
     return (
       <View style={styles.container}>
         <Text style={styles.header}>NFL</Text>
-        <View style={{ flexDirection: 'row'}}>
+        <View style={{flexDirection: 'row'}}>
           <View style={styles.tab}>
         <TouchableOpacity
        onPress={() => navigation.navigate('Home')}
@@ -58,19 +56,19 @@ function Home({navigation}) {
       </TouchableOpacity>
       </View>
       <View style={styles.tab}>
-        <TouchableOpacity
+      <TouchableOpacity
         onPress={() => navigation.navigate('Spread')}
       >
         <Text>Spreads</Text>
-       
-        </TouchableOpacity>
+      </TouchableOpacity>
       </View>
       </View>
       
         <View style={styles.contentContainer}>
+        
         <FlatList
-        data={NFLTotalsData}
-        renderItem={({ item }) => <ListItem {...item} />}
+        data={NFLSpreadsData}
+        renderItem={({ item }) => <ListItemS {...item} />}
         keyExtractor={item => item.id}
       /> 
       </View> 
@@ -100,7 +98,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     paddingHorizontal: 10,
     paddingTop: 20,
-    paddingBottom: 150
+    paddingBottom: 150,
   },
   tab: {
     flex: 1,  
@@ -118,4 +116,4 @@ const styles = StyleSheet.create({
 })
   
 
-export default Home
+export default Spread
